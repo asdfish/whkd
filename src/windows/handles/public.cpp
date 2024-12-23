@@ -41,9 +41,9 @@ std::vector<std::optional<std::string>> get_handle_texts(const std::vector<HWND>
     }
 
     std::vector<char> text_raw;
-    text_raw.reserve(length);
+    text_raw.resize(length);
 
-    if(GetWindowTextA(handle, text_raw.data(), length) <= 0) {
+    if(GetWindowTextA(handle, text_raw.data(), text_raw.capacity()) <= 0) {
       print_last_error();
       return std::nullopt;
     }
