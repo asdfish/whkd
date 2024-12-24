@@ -6,9 +6,9 @@
 template <typename T>
 class GuardedContainer {
   T data;
+public:
   CRITICAL_SECTION* critical_section = nullptr;
 
-public:
   GuardedContainer(void) {}
   GuardedContainer(CRITICAL_SECTION* i_critical_section):
     critical_section(i_critical_section) {}

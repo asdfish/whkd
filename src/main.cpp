@@ -16,7 +16,7 @@ int main(int argc, char* argv[]) {
   });
   flags.parse(argc, argv);
 
-  static constexpr BranchBase branchs[] = {
+  static constexpr Branch branchs[] = {
     get_branch_help(),
     get_branch_version(),
   };
