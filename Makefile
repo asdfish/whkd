@@ -2,6 +2,7 @@ CXX ?= c++
 override CXXFLAGS += -std=c++17
 override CXXFLAGS += -Wall -Wextra -Wpedantic
 override CXXFLAGS += -Ibuild -Iinclude
+override CXXFLAGS += -DWWM_VERSION='"0.1"'
 
 define COMPILE
 ${CXX} -c ${1} ${CXXFLAGS} -o ${2}
