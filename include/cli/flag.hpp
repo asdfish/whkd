@@ -16,10 +16,12 @@ public:
   ArgumentType argument_type;
   std::string name;
 
+  std::optional<std::string> documentation;
+
   bool set = false;
   std::optional<std::string> argument = std::nullopt;
 
-  Flag(ArgumentType i_argument_type, std::string&& i_name);
+  Flag(ArgumentType i_argument_type, std::string&& i_name, std::optional<std::string>&& i_documentation);
   constexpr option get_option() const {
     return option { name.c_str(), argument_type, nullptr, 0 };
   }

@@ -6,15 +6,15 @@
 
 int main(int argc, char* argv[]) {
   Flags flags = Flags({
-    { 'h', Flag(ARGUMENT_NONE, "help") },
-    { 'v', Flag(ARGUMENT_NONE, "version") },
+    { 'h', Flag(ARGUMENT_NONE, "help",    "Print this message and exit") },
+    { 'v', Flag(ARGUMENT_NONE, "version", "Print version information and exit") },
   });
   flags.parse(argc, argv);
 
   static constexpr BranchBase branchs[] = {
     get_branch_help(),
   };
-  for(size_t i = 0; i < ARRAY_LENGTH(branchs); i ++)
+  for(std::size_t i = 0; i < ARRAY_LENGTH(branchs); i ++)
     if(branchs[i].predicate(flags))
       return branchs[i].routine(flags);
 

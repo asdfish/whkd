@@ -2,6 +2,7 @@
 #include <std/functional.hpp>
 #include <std/unordered_map.hpp>
 
+#include <iostream>
 #include <utility>
 
 Flags::Flags(std::unordered_map<char, Flag>&& i_flags):
@@ -58,4 +59,41 @@ void Flags::parse(int argc, char* argv[]) {
       }
     }
   }
+}
+void Flags::print_documentation(std::size_t padding) const {
+  std::string padding_string = get_padding(padding);
+
+  std::size_t max_name_length = get_max_name_length();
+
+  for(const auto& flag : flags) {
+    std::cout << padding_string << '-' << flag.first << " --" << flag.second.name;
+
+    if(flag.second.documentation.has_value()) {
+      std::size_t name_length = flag.second.name.length();
+      if(max_name_length > name_length)
+        std::cout << get_padding(max_name_length - name_length);
+      std::cout << ' ' << *flag.second.documentation;
+    }
+
+    std::cout << '\n';
+  }
+}
+
+std::string Flags::get_padding(std::size_t padding) {
+  std::string output;
+  output.reserve(padding);
+  for(std::size_t i = 0; i < padding; i ++)
+    output += ' ';
+  return output;
+}
+std::size_t Flags::get_max_name_length(void) const {
+  std::size_t max_name_length = 0;
+  for(const auto& flag : flags) {
+    std::size_t name_length = flag.second.name.length();
+
+    if(max_name_length < name_length)
+      max_name_length = name_length;
+  }
+
+  return max_name_length;
 }
