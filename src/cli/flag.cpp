@@ -8,3 +8,6 @@ Flag::Flag(ArgumentType i_argument_type, std::string&& i_name, std::optional<std
 
   set(false),
   argument(std::nullopt) {}
+option Flag::get_option() const {
+  return option { name.c_str(), argument_type, nullptr, 0 };
+}

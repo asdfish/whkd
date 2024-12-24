@@ -23,9 +23,7 @@ public:
   std::optional<std::string> argument = std::nullopt;
 
   Flag(ArgumentType i_argument_type, std::string&& i_name, std::optional<std::string>&& i_documentation);
-  constexpr option get_option() const {
-    return option { name.c_str(), argument_type, nullptr, 0 };
-  }
+  option get_option() const;
 };
 
 #endif // FLAG_HPP
