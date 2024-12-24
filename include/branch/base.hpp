@@ -1,7 +1,7 @@
 #ifndef BRANCH_BASE_HPP
 #define BRANCH_BASE_HPP
 
-#include <cli/flags.hpp>
+class Flags;
 
 typedef bool (*branch_predicate_t) (const Flags&);
 typedef int (*branch_routine_t) (const Flags&);

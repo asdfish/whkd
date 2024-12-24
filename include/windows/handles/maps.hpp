@@ -3,6 +3,7 @@
 
 #include <windows.h>
 
+#include <string>
 #include <optional>
 
 extern std::optional<std::string> handle_map_to_string(const HWND& handle);

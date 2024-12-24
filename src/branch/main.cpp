@@ -7,7 +7,6 @@
 
 #include <winuser.h>
 
-#include <algorithm>
 #include <iostream>
 
 int branch_main(const Flags&) {

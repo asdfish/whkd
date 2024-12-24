@@ -2,6 +2,7 @@
 #define FLAG_HPP
 
 #include <getopt.h>
+
 #include <optional>
 #include <string>
 
