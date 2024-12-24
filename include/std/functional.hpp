@@ -19,15 +19,16 @@ inline void filter(std::vector<T>& subject, bool (*predicate) (const T&)) {
   }
 }
 template <typename T>
-inline std::vector<T> filter_copy(const std::vector<T>& original, bool(*predicate)(const T&)) {
-  std::vector<T> output;
-  output.reserve(original.size());
+inline void filter(std::vector<T>& subject, const std::function<bool(const T&)>& predicate) {
+  std::size_t i = 0;
+  while(i < subject.size()) {
+    if(predicate(subject[i])) {
+      subject.erase(subject.begin() + i);
+      continue;
+    }
 
-  for(const T& i : original)
-    if(predicate(i))
-      output.push_back(i);
-
-  return output;
+    i ++;
+  }
 }
 
 template <typename IN_ITERATOR, typename IN, typename OUT>

@@ -1,6 +1,7 @@
 #include <branch/main.hpp>
 #include <cli/flags.hpp>
 #include <std/functional.hpp>
+#include <windows/handles/filters.hpp>
 #include <windows/handles/main.hpp>
 #include <windows/handles/maps.hpp>
 
@@ -12,7 +13,7 @@
 int branch_main(const Flags&) {
   std::optional<std::vector<HWND>> handles = get_handles();
 
-  filter<HWND>(*handles, IsWindowVisible);
+  filter<HWND>(*handles, handle_filter_winapi(IsWindowVisible));
 
   std::vector<std::optional<std::string>> texts
     = map<std::vector<HWND>::const_iterator, HWND, std::optional<std::string>>
