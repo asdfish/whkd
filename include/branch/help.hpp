@@ -1,3 +1,6 @@
+#ifndef BRANCH_HELP_HPP
+#define BRANCH_HELP_HPP
+
 #include <branch/base.hpp>
 
 extern bool branch_help_predicate(const Flags& flags);
@@ -9,3 +12,5 @@ constexpr BranchBase get_branch_help(void) {
     branch_help_routine
   );
 }
+
+#endif // BRANCH_HELP_HPP
