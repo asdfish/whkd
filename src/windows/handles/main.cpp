@@ -1,7 +1,7 @@
-#include <functional.hpp>
+#include <std/functional.hpp>
 #include <windows/error.hpp>
-#include <windows/handles/public.hpp>
-#include <windows/handles/static.hpp>
+#include <windows/handles/main.hpp>
+#include "static.hpp"
 
 #include <winuser.h>
 
@@ -30,27 +30,23 @@ std::optional<std::size_t> get_handles_length(HDESK desktop) {
 }
 
 std::vector<std::optional<std::string>> get_handle_texts(const std::vector<HWND>& handles) {
-  using input_t = HWND;
+  using iterator_t = std::vector<HWND>::const_iterator;
   using output_t = std::optional<std::string>;
+  std::vector<output_t> output = map <iterator_t, output_t>
+    (handles.cbegin(), handles.cend(), [](const iterator_t& handle) -> output_t {
+      int text_length = GetWindowTextLengthA(*handle);
+      if(text_length <= 0)
+        return std::nullopt;
 
-  std::vector<output_t> output = map<input_t, output_t>(handles, [](const input_t& handle) -> output_t {
-    int length = GetWindowTextLengthA(handle) + 1;
-    if(length <= 0) {
-      print_last_error();
-      return std::nullopt;
-    }
+      text_length ++;
+      std::vector<char> buffer;
+      buffer.reserve(text_length);
 
-    std::vector<char> text_raw;
-    text_raw.reserve(length);
+      if(GetWindowTextA(*handle, buffer.data(), text_length) <= 0)
+        return std::nullopt;
 
-    if(GetWindowTextA(handle, text_raw.data(), length) <= 0) {
-      print_last_error();
-      return std::nullopt;
-    }
-
-    std::string text = std::string(text_raw.data());
-    return text;
-  });
+      return std::string(buffer.data());
+    });
 
   return output;
 }

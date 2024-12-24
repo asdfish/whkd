@@ -9,13 +9,13 @@
 #include <windows.h>
 #include <winuser.h>
 
-using enum_windows_function_t = std::function<BOOL(WNDENUMPROC, LPARAM)>;
+using enum_windows_functor_t = std::function<BOOL(WNDENUMPROC, LPARAM)>;
 
-static std::optional<std::vector<HWND>> get_handles_base(enum_windows_function_t callback, std::size_t handles_length);
-static std::optional<std::size_t> get_handles_length_base(enum_windows_function_t callback);
-static enum_windows_function_t get_enum_desktop_windows_functor(HDESK desktop);
+static std::optional<std::vector<HWND>> get_handles_base(enum_windows_functor_t callback, std::size_t handles_length);
+static std::optional<std::size_t> get_handles_length_base(enum_windows_functor_t callback);
+static enum_windows_functor_t get_enum_desktop_windows_functor(HDESK desktop);
 
-static std::optional<std::vector<HWND>> get_handles_base(enum_windows_function_t callback, std::size_t handles_length) {
+static std::optional<std::vector<HWND>> get_handles_base(enum_windows_functor_t callback, std::size_t handles_length) {
   std::vector<HWND> handles;
   handles.reserve(handles_length);
 
@@ -36,7 +36,7 @@ static std::optional<std::vector<HWND>> get_handles_base(enum_windows_function_t
 
   return handles;
 }
-static std::optional<std::size_t> get_handles_length_base(enum_windows_function_t callback) {
+static std::optional<std::size_t> get_handles_length_base(enum_windows_functor_t callback) {
   std::size_t output = 0;
 
   if(callback([] (HWND, LPARAM user_data) {
@@ -54,7 +54,7 @@ static std::optional<std::size_t> get_handles_length_base(enum_windows_function_
 
   return output;
 }
-static enum_windows_function_t get_enum_desktop_windows_functor(HDESK desktop) {
+static enum_windows_functor_t get_enum_desktop_windows_functor(HDESK desktop) {
   using namespace std::placeholders;
   return std::bind(EnumDesktopWindows, desktop, _1, _2);
 }

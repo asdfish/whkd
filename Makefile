@@ -27,13 +27,12 @@ build/%.gch: include/%
 	$(call COMPILE,$<,$@)
 build/%.o: src/%.cpp
 	$(call COMPILE,$<,$@)
+remove/%:
+	$(call REMOVE,$(patsubst remove/%,%,$@))
 
 wwm.exe: ${WWM_REQUIREMENTS}
 	${CXX} ${OBJECTS} ${CXXFLAGS} ${LDFLAGS} -o $@
 
-clean:
-	$(foreach ITEM,$\
-		${WWM_REQUIREMENTS} wwm.exe,$\
-		$(call REMOVE,${ITEM}))
+clean: $(patsubst %,remove/%,${WWM_REQUIREMENTS} wwm.exe)
 
-.PHONY: all clean
+.PHONY: all clean remove/%
