@@ -7,6 +7,7 @@
 
 class KeyActionBase {
 public:
+  virtual ~KeyActionBase(void) = default;
   virtual void execute(std::vector<HWND>& handles) const;
 };
 

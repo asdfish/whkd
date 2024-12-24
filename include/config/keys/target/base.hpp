@@ -1,8 +1,14 @@
 #ifndef KEY_TARGET_HPP
 #define KEY_TARGET_HPP
 
-/*class KeyTargetBase {*/
-/*public:*/
-/*};*/
+#include <windows.h>
+
+#include <vector>
+
+class KeyTargetBase {
+public:
+  virtual ~KeyTargetBase(void) = default;
+  virtual std::vector<HWND> get(void) const = 0;
+};
 
 #endif // KEY_TARGET_HPP
