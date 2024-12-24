@@ -1,7 +1,7 @@
 #ifndef BRANCH_MAIN_HPP
 #define BRANCH_MAIN_HPP
 
-#include <cli/flags.hpp>
+class Flags;
 
 extern int branch_main(const Flags& flags);
 

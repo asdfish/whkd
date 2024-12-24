@@ -1,7 +1,7 @@
 #ifndef FLAGS_HPP
 #define FLAGS_HPP
 
-#include <cli/flag.hpp>
+class Flag;
 
 #include <getopt.h>
 

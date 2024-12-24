@@ -3,6 +3,7 @@
 #endif
 
 #include <branch/version.hpp>
+#include <cli/flag.hpp>
 
 #include <iostream>
 

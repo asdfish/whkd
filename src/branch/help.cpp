@@ -1,4 +1,5 @@
 #include <branch/help.hpp>
+#include <cli/flag.hpp>
 
 #include <iostream>
 

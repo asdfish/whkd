@@ -1,3 +1,4 @@
+#include <cli/flag.hpp>
 #include <cli/flags.hpp>
 #include <std/functional.hpp>
 #include <std/unordered_map.hpp>
@@ -17,9 +18,10 @@ std::vector<option> Flags::get_options() const {
   std::vector<output_t> output;
   output.reserve(flags.size() + 1);
 
-  map<iterator_t, output_t>(flags.cbegin(), flags.cend(), output, [](const iterator_t& flag) -> output_t {
-    option output = flag->second.get_option();
-    output.val = flag->first;
+  map<iterator_t, std::pair<char, Flag>, output_t>
+    (flags.cbegin(), flags.cend(), output, [](const std::pair<char, Flag>& flag) -> output_t {
+    option output = flag.second.get_option();
+    output.val = flag.first;
 
     return output;
   });
