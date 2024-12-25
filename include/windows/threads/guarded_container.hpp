@@ -26,5 +26,7 @@ public:
 };
 
 extern template class GuardedContainer<std::vector<DWORD>>;
+extern template void GuardedContainer<std::vector<DWORD>>::read<KBDLLHOOKSTRUCT*>(void (*callback) (const std::vector<DWORD>&, KBDLLHOOKSTRUCT*&), KBDLLHOOKSTRUCT*&);
+extern template void GuardedContainer<std::vector<DWORD>>::write<KBDLLHOOKSTRUCT*>(void (*callback) (std::vector<DWORD>&, KBDLLHOOKSTRUCT*&), KBDLLHOOKSTRUCT*&);
 
 #endif // GUARDED_CONTAINER_HPP

@@ -1,11 +1,26 @@
 #include <branch/main.hpp>
 #include <cli/flags.hpp>
+#include <windows/hook/key.hpp>
 
-GuardedContainer<std::vector<DWORD>> keys = GuardedContainer<std::vector<DWORD>>();
-
-static LRESULT key_event_hook_callback(int code, LPARAM l_param, WPARAM w_param) {
-}
+#include <cstdlib>
 
 int branch_main(const Flags&) {
+  SetConsoleCtrlHandler([] (DWORD signal_type) -> BOOL {
+    std::exit(signal_type);
+    return FALSE;
+  }, TRUE);
+
+  try {
+    Hook hook_key = get_hook_key();
+
+    MSG message;
+    while(!GetMessage(&message, nullptr, 0, 0)) {
+      TranslateMessage(&message);
+      DispatchMessage(&message);
+    }
+  } catch(...) {
+    exit(-1);
+  }
+
   return 0;
 }

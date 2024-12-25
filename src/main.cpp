@@ -5,8 +5,6 @@
 #include <branch/main.hpp>
 #include <branch/version.hpp>
 
-#include <iostream>
-
 #define ARRAY_LENGTH(array) (sizeof(array) / sizeof(array[0]))
 
 int main(int argc, char* argv[]) {
@@ -16,13 +14,13 @@ int main(int argc, char* argv[]) {
   });
   flags.parse(argc, argv);
 
-  static constexpr Branch branchs[] = {
+  constexpr Branch branches[] = {
     get_branch_help(),
     get_branch_version(),
   };
-  for(std::size_t i = 0; i < ARRAY_LENGTH(branchs); i ++)
-    if(branchs[i].predicate(flags))
-      return branchs[i].routine(flags);
+  for(std::size_t i = 0; i < ARRAY_LENGTH(branches); i ++)
+    if(branches[i].predicate(flags))
+      return branches[i].routine(flags);
 
   return branch_main(flags);
 }
