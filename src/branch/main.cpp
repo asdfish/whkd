@@ -2,8 +2,8 @@
 #include <cli/flag.hpp>
 #include <cli/flags.hpp>
 #include <macros.hpp>
-#include <windows/hook/base.hpp>
-#include <windows/hook/key.hpp>
+#include <windows/key_hook.hpp>
+#include <windows/error.hpp>
 
 #include <cstdlib>
 
@@ -19,8 +19,8 @@ int branch_main(const Flags& flags) {
   }, TRUE);
 
   try {
-    LOG(flags, "Installing key hook");
-    Hook hook_key = create_hook_key();
+    LOG(flags, "Installing key hooks");
+    KeyHook key_hook = KeyHook();
 
     LOG(flags, "Waiting for messages");
     MSG message;
