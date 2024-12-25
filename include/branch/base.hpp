@@ -3,15 +3,12 @@
 
 class Flags;
 
-typedef bool (*branch_predicate_t) (const Flags&);
-typedef int (*branch_routine_t) (const Flags&);
-
 class Branch {
 public:
-  branch_predicate_t predicate = nullptr;
-  branch_routine_t routine = nullptr;
+  bool (*predicate) (const Flags&) = nullptr;
+  int (*routine) (const Flags&) = nullptr;
 
-  constexpr Branch(branch_predicate_t i_predicate, branch_routine_t i_routine):
+  constexpr Branch(bool (*i_predicate) (const Flags&), int (*i_routine) (const Flags&)):
     predicate(i_predicate),
     routine(i_routine) {}
 };
