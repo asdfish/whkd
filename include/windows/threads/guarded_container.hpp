@@ -3,18 +3,26 @@
 
 #include <windows.h>
 
+#include <atomic>
 #include <vector>
 
 template <typename T>
 class GuardedContainer {
   T data;
-public:
-  CRITICAL_SECTION* critical_section = nullptr;
 
+  CRITICAL_SECTION critical_section;
+  std::atomic<bool> writing = false;
+
+public:
   GuardedContainer(void);
-  GuardedContainer(CRITICAL_SECTION* i_critical_section);
-  bool modify(bool (*callback) (T& data, void* user_data), void* user_data);
-  const T& read(void) const;
+  GuardedContainer(T&& i_data);
+  ~GuardedContainer(void);
+
+  template <typename UT>
+  void read(void (*callback) (const T& data, UT& user_data), UT& user_data);
+
+  template <typename UT>
+  void write(void (*callback) (T& data, UT& user_data), UT& user_data);
 };
 
 extern template class GuardedContainer<std::vector<DWORD>>;

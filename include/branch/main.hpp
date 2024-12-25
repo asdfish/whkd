@@ -9,7 +9,6 @@
 
 class Flags;
 
-extern CRITICAL_SECTION critical_section;
 extern GuardedContainer<std::vector<DWORD>> keys;
 
 extern int branch_main(const Flags& flags);

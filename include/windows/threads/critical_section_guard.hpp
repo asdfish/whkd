@@ -4,12 +4,11 @@
 #include <windows.h>
 
 class CriticalSectionGuard {
-public:
-  CriticalSectionGuard(CRITICAL_SECTION* critical_section);
-  ~CriticalSectionGuard(void);
-
-private:
   CRITICAL_SECTION* critical_section = nullptr;
+
+public:
+  CriticalSectionGuard(CRITICAL_SECTION* i_critical_section);
+  ~CriticalSectionGuard(void);
 };
 
 #endif // CRITICAL_SECTION_GUARD_HPP
