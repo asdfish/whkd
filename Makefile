@@ -13,6 +13,9 @@ $(if $(wildcard $(1)),$\
 	rm $(1))
 
 endef
+define INHERIT_ENV_ARGUMENT
+$(if $(1),-D$(1))
+endef
 
 PROCESSED_HEADERS := $(patsubst include/%.hpp,$\
 										 	build/%.hpp.gch,$\
@@ -32,7 +35,7 @@ remove/%:
 	$(call REMOVE,$(patsubst remove/%,%,$@))
 
 whkd.exe: ${WHKD_REQUIREMENTS}
-	${CXX} ${OBJECTS} ${CXXFLAGS} ${LDFLAGS} -o $@
+	${CXX} ${OBJECTS} ${CXXFLAGS} ${LDFLAGS} $(call INHERIT_ENV_ARGUMENT,MSYSTEM) -o $@
 
 clean: $(patsubst %,remove/%,${WHKD_REQUIREMENTS} whkd.exe)
 

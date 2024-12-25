@@ -71,6 +71,8 @@ void GuardedContainer<T>::write(void (*callback) (T& data, UT& user_data), UT& u
   }
 }
 
+template class GuardedContainer<bool>;
+
 template class GuardedContainer<std::vector<DWORD>>;
 template void GuardedContainer<std::vector<DWORD>>::read<KBDLLHOOKSTRUCT*>(void (*callback) (const std::vector<DWORD>&, KBDLLHOOKSTRUCT*&), KBDLLHOOKSTRUCT*&) const;
 template void GuardedContainer<std::vector<DWORD>>::write<KBDLLHOOKSTRUCT*>(void (*callback) (std::vector<DWORD>&, KBDLLHOOKSTRUCT*&), KBDLLHOOKSTRUCT*&);

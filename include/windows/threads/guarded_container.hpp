@@ -28,6 +28,8 @@ public:
   void write(void (*callback) (T& data, UT& user_data), UT& user_data);
 };
 
+extern template class GuardedContainer<bool>;
+
 extern template class GuardedContainer<std::vector<DWORD>>;
 extern template void GuardedContainer<std::vector<DWORD>>::read<KBDLLHOOKSTRUCT*>(void (*callback) (const std::vector<DWORD>&, KBDLLHOOKSTRUCT*&), KBDLLHOOKSTRUCT*&) const;
 extern template void GuardedContainer<std::vector<DWORD>>::write<KBDLLHOOKSTRUCT*>(void (*callback) (std::vector<DWORD>&, KBDLLHOOKSTRUCT*&), KBDLLHOOKSTRUCT*&);
