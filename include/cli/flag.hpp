@@ -1,10 +1,10 @@
 #ifndef FLAG_HPP
 #define FLAG_HPP
 
-#include <getopt.h>
-
 #include <optional>
 #include <string>
+
+struct option;
 
 enum ArgumentType {
   ARGUMENT_NONE = 0,

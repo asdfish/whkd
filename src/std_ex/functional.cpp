@@ -1,6 +1,8 @@
 #include <cli/flag.hpp>
 #include <std_ex/functional.hpp>
 
+#include <getopt.h>
+
 #include <cstdlib>
 #include <iterator>
 

@@ -1,13 +1,12 @@
 #ifndef FLAGS_HPP
 #define FLAGS_HPP
 
-class Flag;
-
-#include <getopt.h>
-
 #include <string>
 #include <vector>
 #include <unordered_map>
+
+class Flag;
+struct option;
 
 class Flags {
 public:

@@ -1,7 +1,9 @@
 #ifndef CONFIG_MAIN_HPP
 #define CONFIG_MAIN_HPP
 
-#include <config/keys/binding/base.hpp>
+#include <vector>
+
+class KeyBinding;
 
 class Config {
   std::vector<KeyBinding> key_bindings;

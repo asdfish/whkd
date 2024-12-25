@@ -3,6 +3,8 @@
 #include <std_ex/functional.hpp>
 #include <std_ex/unordered_map.hpp>
 
+#include <getopt.h>
+
 #include <iostream>
 #include <utility>
 

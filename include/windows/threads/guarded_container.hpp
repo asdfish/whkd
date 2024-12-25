@@ -1,8 +1,6 @@
 #ifndef GUARDED_CONTAINER_HPP
 #define GUARDED_CONTAINER_HPP
 
-#include <windows/threads/critical_section_guard.hpp>
-
 #include <windows.h>
 
 #include <vector>

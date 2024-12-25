@@ -1,3 +1,4 @@
+#include <config/keys/binding/base.hpp>
 #include <config/main.hpp>
 
 #include <utility>

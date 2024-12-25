@@ -1,3 +1,4 @@
+#include <windows/threads/critical_section_guard.hpp>
 #include <windows/threads/guarded_container.hpp>
 
 template <typename T>

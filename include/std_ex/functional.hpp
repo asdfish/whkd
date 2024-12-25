@@ -1,12 +1,11 @@
 #ifndef FUNCTIONAL_HPP
 #define FUNCTIONAL_HPP
 
-#include <getopt.h>
-
 #include <functional>
 #include <vector>
 
 class Flag;
+struct option;
 
 template <typename T>
 void filter(std::vector<T>& subject, bool (*predicate) (const T&));

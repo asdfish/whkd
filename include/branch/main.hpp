@@ -1,8 +1,9 @@
 #ifndef BRANCH_MAIN_HPP
 #define BRANCH_MAIN_HPP
 
-#include <windows.h>
 #include <windows/threads/guarded_container.hpp>
+
+#include <windows.h>
 
 #include <vector>
 
