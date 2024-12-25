@@ -12,14 +12,11 @@ const Flag& Flags::operator[](char key) const {
   return flags.at(key);
 }
 std::vector<option> Flags::get_options() const {
-  using iterator_t = std::unordered_map<char, Flag>::const_iterator;
-  using output_t = option;
-
-  std::vector<output_t> output;
+  std::vector<option> output;
   output.reserve(flags.size() + 1);
 
-  map<iterator_t, std::pair<char, Flag>, output_t>
-    (flags.cbegin(), flags.cend(), output, [](const std::pair<char, Flag>& flag) -> output_t {
+  map<std::unordered_map<char, Flag>::const_iterator, std::pair<char, Flag>, option>
+    (flags.cbegin(), flags.cend(), output, [](const std::pair<char, Flag>& flag) -> option {
     option output = flag.second.get_option();
     output.val = flag.first;
 
