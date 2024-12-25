@@ -4,7 +4,6 @@
 #include <windows.h>
 
 class Hook {
-  LRESULT (*callback) (int code, WPARAM w_param, LPARAM l_param) = nullptr;
   HHOOK id = nullptr;
 
 public:

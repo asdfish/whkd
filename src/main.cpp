@@ -11,6 +11,8 @@ int main(int argc, char* argv[]) {
   Flags flags = Flags({
     { 'h', Flag(ARGUMENT_NONE, "help",    "Print this message and exit") },
     { 'v', Flag(ARGUMENT_NONE, "version", "Print version information and exit") },
+
+    { 'l', Flag(ARGUMENT_NONE, "log",     "Enable logging") }
   });
   flags.parse(argc, argv);
 

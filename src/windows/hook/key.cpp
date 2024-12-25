@@ -1,3 +1,4 @@
+#include <windows/hook/base.hpp>
 #include <windows/hook/key.hpp>
 
 GuardedContainer<std::vector<DWORD>> keys = GuardedContainer<std::vector<DWORD>>();
@@ -23,6 +24,6 @@ static LRESULT hook_key_callback(int code, WPARAM w_param, LPARAM l_param) {
   return eat_key ? 1 : CallNextHookEx(nullptr, code, w_param, l_param);
 }
 
-Hook get_hook_key(void) {
+Hook create_hook_key(void) {
   return Hook(WH_KEYBOARD_LL, hook_key_callback);
 }

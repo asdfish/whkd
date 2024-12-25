@@ -2,7 +2,7 @@ CXX ?= c++
 override CXXFLAGS += -std=c++17
 override CXXFLAGS += -Wall -Wextra -Wpedantic
 override CXXFLAGS += -Ibuild -Iinclude
-override CXXFLAGS += -DWWM_VERSION='"0.1"'
+override CXXFLAGS += -DWHKD_VERSION='"0.1"'
 
 define COMPILE
 ${CXX} -c ${1} ${CXXFLAGS} -o ${2}
@@ -20,9 +20,9 @@ PROCESSED_HEADERS := $(patsubst include/%.hpp,$\
 OBJECTS := $(patsubst src/%.cpp,$\
 					 	build/%.o,$\
 						$(shell find src -name '*.cpp'))
-WWM_REQUIREMENTS := ${PROCESSED_HEADERS} ${OBJECTS}
+WHKD_REQUIREMENTS := ${PROCESSED_HEADERS} ${OBJECTS}
 
-all: wwm.exe
+all: whkd.exe
 
 build/%.gch: include/%
 	$(call COMPILE,$<,$@)
@@ -31,9 +31,9 @@ build/%.o: src/%.cpp
 remove/%:
 	$(call REMOVE,$(patsubst remove/%,%,$@))
 
-wwm.exe: ${WWM_REQUIREMENTS}
+whkd.exe: ${WHKD_REQUIREMENTS}
 	${CXX} ${OBJECTS} ${CXXFLAGS} ${LDFLAGS} -o $@
 
-clean: $(patsubst %,remove/%,${WWM_REQUIREMENTS} wwm.exe)
+clean: $(patsubst %,remove/%,${WHKD_REQUIREMENTS} whkd.exe)
 
 .PHONY: all clean remove/%
