@@ -1,4 +1,8 @@
+#include <cli/flag.hpp>
 #include <std/functional.hpp>
+
+#include <cstdlib>
+#include <iterator>
 
 template <typename T>
 void filter(std::vector<T>& subject, bool (*predicate) (const T&)) {
@@ -38,3 +42,10 @@ std::vector<OUT> map(IN_ITERATOR begin, IN_ITERATOR end, OUT (*converter) (const
   map(begin, end, output, converter);
   return output;
 }
+
+template void map(
+  std::unordered_map<char, Flag>::const_iterator,
+  std::unordered_map<char, Flag>::const_iterator,
+  std::vector<option>&,
+  option (*) (const std::pair<char, Flag>&)
+);
