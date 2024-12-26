@@ -3,8 +3,10 @@
 
 #include <branch/base.hpp>
 
-extern bool branch_help_predicate(void);
-extern int branch_help_routine(void);
+class Flags;
+
+extern bool branch_help_predicate(const Flags& flags);
+extern int branch_help_routine(const Flags& flags);
 
 constexpr Branch get_branch_help(void) {
   return Branch(

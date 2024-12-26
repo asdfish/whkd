@@ -3,10 +3,10 @@
 
 #include <utility>
 
-Hotkey::Hotkey(const char* i_command, std::vector<HWND>&& i_keys):
+Hotkey::Hotkey(const char* i_command, std::vector<DWORD>&& i_keys):
   command(i_command),
   keys(std::move(i_keys)) {}
-InputsStatus Hotkey::get_inputs_status(const std::vector<HWND>& inputs) const {
+InputsStatus Hotkey::get_inputs_status(const std::vector<DWORD>& inputs) const {
   bool match = true;
 
   InputsStatus status = INPUTS_MATCH;

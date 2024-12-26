@@ -1,14 +1,15 @@
 #include <branch/main.hpp>
 #include <cli/flag.hpp>
 #include <cli/flags.hpp>
+#include <config.hpp>
+#include <hotkey.hpp>
 #include <macros.hpp>
 #include <windows/key_hook.hpp>
 #include <windows/error.hpp>
-#include <main.hpp>
 
 #include <cstdlib>
 
-int branch_main(void) {
+int branch_main(const Flags& flags) {
   if(flags['l'].set)
     std::atexit([] {
       std::cerr << "Exiting\n";
@@ -21,8 +22,25 @@ int branch_main(void) {
 
   try {
     LOG(flags, "Installing key hooks");
-    KeyHook key_hook = KeyHook([](std::vector<DWORD>& keys) -> bool {
-      return false;
+    KeyHook key_hook = KeyHook([&flags](std::vector<DWORD>& keys) -> bool {
+      bool contains = false;
+      std::optional<size_t> match = std::nullopt;
+      for(size_t i = 0; i < hotkeys.size() && !match.has_value(); i ++)
+        switch(hotkeys[i].get_inputs_status(keys)) {
+          case INPUTS_CONTAIN:
+            contains = true;
+            continue;
+          case INPUTS_MATCH:
+            match = i;
+            continue;
+        }
+
+      if(!contains && !match) {
+        LOG(flags, "Clearing");
+        return false;
+      }
+
+      return true;
     });
     if(!key_hook.ok()) {
       print_last_error();

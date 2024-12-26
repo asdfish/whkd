@@ -13,12 +13,12 @@ enum InputsStatus {
 
 class Hotkey {
   const char* command;
-  std::vector<HWND> keys;
+  std::vector<DWORD> keys;
 
 public:
-  Hotkey(const char* command, std::vector<HWND>&& keys);
+  Hotkey(const char* command, std::vector<DWORD>&& keys);
   void execute(void) const;
-  InputsStatus get_inputs_status(const std::vector<HWND>& inputs) const;
+  InputsStatus get_inputs_status(const std::vector<DWORD>& inputs) const;
 };
 
 #endif // HOTKEY_HPP
