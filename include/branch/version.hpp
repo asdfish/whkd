@@ -3,8 +3,8 @@
 
 #include <branch/base.hpp>
 
-extern bool branch_version_predicate(const Flags& flags);
-extern int branch_version_routine(const Flags& flags);
+extern bool branch_version_predicate(void);
+extern int branch_version_routine(void);
 
 constexpr Branch get_branch_version(void) {
   return Branch(

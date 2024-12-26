@@ -4,10 +4,11 @@
 #include <macros.hpp>
 #include <windows/key_hook.hpp>
 #include <windows/error.hpp>
+#include <main.hpp>
 
 #include <cstdlib>
 
-int branch_main(const Flags& flags) {
+int branch_main(void) {
   if(flags['l'].set)
     std::atexit([] {
       std::cerr << "Exiting\n";
@@ -20,7 +21,13 @@ int branch_main(const Flags& flags) {
 
   try {
     LOG(flags, "Installing key hooks");
-    KeyHook key_hook = KeyHook();
+    KeyHook key_hook = KeyHook([](std::vector<DWORD>& keys) -> bool {
+      return false;
+    });
+    if(!key_hook.ok()) {
+      print_last_error();
+      return -1;
+    }
 
     LOG(flags, "Waiting for messages");
     MSG message;

@@ -5,13 +5,14 @@
 #include <branch/version.hpp>
 #include <cli/flag.hpp>
 #include <cli/flags.hpp>
+#include <main.hpp>
 
 #include <iostream>
 
-bool branch_version_predicate(const Flags& flags) {
+bool branch_version_predicate(void) {
   return flags['v'].set;
 }
-int branch_version_routine(const Flags&) {
+int branch_version_routine(void) {
   std::cout << "whkd " << WHKD_VERSION << "\n"
     "Copyright (C) 2024 asdfish\n"
     "License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.\n"

@@ -7,13 +7,14 @@
 
 #define ARRAY_LENGTH(array) (sizeof(array) / sizeof(array[0]))
 
-int main(int argc, char* argv[]) {
-  Flags flags = Flags({
-    { 'h', Flag(ARGUMENT_NONE, "help",    "Print this message and exit") },
-    { 'v', Flag(ARGUMENT_NONE, "version", "Print version information and exit") },
+Flags flags = Flags({
+  { 'h', Flag(ARGUMENT_NONE, "help",    "Print this message and exit") },
+  { 'v', Flag(ARGUMENT_NONE, "version", "Print version information and exit") },
 
-    { 'l', Flag(ARGUMENT_NONE, "log",     "Enable logging") }
-  });
+  { 'l', Flag(ARGUMENT_NONE, "log",     "Enable logging") }
+});
+
+int main(int argc, char* argv[]) {
   flags.parse(argc, argv);
 
   constexpr Branch branches[] = {
@@ -21,8 +22,8 @@ int main(int argc, char* argv[]) {
     get_branch_version(),
   };
   for(std::size_t i = 0; i < ARRAY_LENGTH(branches); i ++)
-    if(branches[i].predicate(flags))
-      return branches[i].routine(flags);
+    if(branches[i].predicate())
+      return branches[i].routine();
 
-  return branch_main(flags);
+  return branch_main();
 }

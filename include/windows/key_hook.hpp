@@ -3,18 +3,19 @@
 
 #include <windows.h>
 
-#include <optional>
+#include <functional>
 #include <vector>
 
 class KeyHook {
   HHOOK handle = nullptr;
+  static std::function<bool(std::vector<DWORD>&)> user_callback;
 
   static LRESULT callback(int code, WPARAM w_param, LPARAM l_param);
 
 public:
-  KeyHook(void);
+  KeyHook(const std::function<bool(std::vector<DWORD>&)>&& i_user_callback);
   ~KeyHook(void);
-
+  bool ok(void) const;
   static const std::vector<DWORD>& get_keys_presses(void);
 };
 
