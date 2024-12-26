@@ -1,10 +1,13 @@
 #ifndef CONFIG_HPP
 #define CONFIG_HPP
 
+#include <hotkey.hpp>
+
 #include <vector>
 
-class Hotkey;
+static const std::vector<Hotkey> hotkeys = {
+  Hotkey("ls", { 'l', 's' }),
+};
 
-extern std::vector<Hotkey> hotkeys;
 
 #endif // CONFIG_HPP
