@@ -1,5 +1,4 @@
 #include <windows/key_hook.hpp>
-#include <windows/key_translation.hpp>
 
 #include <iostream>
 
@@ -32,7 +31,7 @@ LRESULT KeyHook::callback(int code, WPARAM w_param, LPARAM l_param) {
       case WM_SYSKEYDOWN:
         KBDLLHOOKSTRUCT* key = (KBDLLHOOKSTRUCT*) l_param;
 
-	std::optional<DWORD> key_ascii = key_to_ascii(*key);
+	std::optional<DWORD> key_ascii = key_to_ascii(key);
 	if(key_ascii) {
 	  key_presses.push_back(*key_ascii);
 	  eat_key = user_callback(key_presses);
@@ -42,4 +41,18 @@ LRESULT KeyHook::callback(int code, WPARAM w_param, LPARAM l_param) {
   }
 
   return eat_key ? 1 : CallNextHookEx(nullptr, code, w_param, l_param);
+}
+std::optional<DWORD> KeyHook::key_to_ascii(const KBDLLHOOKSTRUCT* key) {
+  if(!key)
+    return std::nullopt;
+
+  BYTE keyboard_state[256];
+  if(GetKeyboardState(keyboard_state) != TRUE)
+    return std::nullopt;
+
+  DWORD ascii_key = 0;
+  if(ToAscii(key->vkCode, key->scanCode, keyboard_state, (LPWORD) &ascii_key, 0) != 1)
+    return std::nullopt;
+
+  return ascii_key;
 }

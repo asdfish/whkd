@@ -11,6 +11,7 @@ class KeyHook {
   static std::function<bool(std::vector<DWORD>&)> user_callback;
 
   static LRESULT callback(int code, WPARAM w_param, LPARAM l_param);
+  static std::optional<DWORD> key_to_ascii(const KBDLLHOOKSTRUCT* key);
 
 public:
   KeyHook(const std::function<bool(std::vector<DWORD>&)>&& i_user_callback);
