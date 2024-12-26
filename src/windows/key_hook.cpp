@@ -1,4 +1,5 @@
 #include <windows/key_hook.hpp>
+#include <windows/key_translation.hpp>
 
 #include <iostream>
 
@@ -29,10 +30,13 @@ LRESULT KeyHook::callback(int code, WPARAM w_param, LPARAM l_param) {
     switch(w_param) {
       case WM_KEYDOWN:
       case WM_SYSKEYDOWN:
-        KBDLLHOOKSTRUCT* event = (KBDLLHOOKSTRUCT*) l_param;
-        key_presses.push_back(event->vkCode);
+        KBDLLHOOKSTRUCT* key = (KBDLLHOOKSTRUCT*) l_param;
 
-        eat_key = user_callback(key_presses);
+	std::optional<DWORD> key_ascii = key_to_ascii(*key);
+	if(key_ascii) {
+	  key_presses.push_back(*key_ascii);
+	  eat_key = user_callback(key_presses);
+	}
         break;
     }
   }

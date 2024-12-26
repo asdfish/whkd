@@ -1,9 +1,9 @@
-#include <cli/flag.hpp>
-#include <cli/flags.hpp>
 #include <branch/base.hpp>
 #include <branch/help.hpp>
 #include <branch/main.hpp>
 #include <branch/version.hpp>
+#include <cli/flag.hpp>
+#include <cli/flags.hpp>
 
 #define ARRAY_LENGTH(array) (sizeof(array) / sizeof(array[0]))
 

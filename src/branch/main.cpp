@@ -24,8 +24,8 @@ int branch_main(const Flags& flags) {
     LOG(flags, "Installing key hooks");
     KeyHook key_hook = KeyHook([&flags](std::vector<DWORD>& keys) -> bool {
       bool contains = false;
-      std::optional<size_t> match = std::nullopt;
-      for(size_t i = 0; i < hotkeys.size() && !match.has_value(); i ++)
+      std::optional<std::size_t> match = std::nullopt;
+      for(std::size_t i = 0; i < hotkeys.size() && !match.has_value(); i ++)
         switch(hotkeys[i].get_inputs_status(keys)) {
           case INPUTS_CONTAIN:
             contains = true;
@@ -37,7 +37,14 @@ int branch_main(const Flags& flags) {
 
       if(!contains && !match) {
         LOG(flags, "Clearing");
+        keys.clear();
         return false;
+      }
+
+      if(match.has_value()) {
+        LOG(flags, "Executing " << hotkeys[*match].get_command());
+	hotkeys[*match].execute();
+        keys.clear();
       }
 
       return true;

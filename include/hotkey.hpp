@@ -18,6 +18,7 @@ class Hotkey {
 public:
   Hotkey(const char* command, std::vector<DWORD>&& keys);
   void execute(void) const;
+  const char* get_command(void) const;
   InputsStatus get_inputs_status(const std::vector<DWORD>& inputs) const;
 };
 
